@@ -197,15 +197,17 @@ tbody tr:hover { background: var(--surface2); }
       <h1>📋 新活力管理系統</h1>
       <p>請登入以繼續使用</p>
     </div>
-    <div class="form-group">
-      <label>帳號</label>
-      <input type="text" id="loginUser" placeholder="請輸入帳號" />
-    </div>
-    <div class="form-group">
-      <label>密碼</label>
-      <input type="password" id="loginPass" placeholder="請輸入密碼" onkeydown="if(event.key==='Enter')doLogin()" />
-    </div>
-    <button class="btn-primary" onclick="doLogin()">登入</button>
+    <form onsubmit="doLogin(); return false;" autocomplete="on">
+      <div class="form-group">
+        <label>帳號</label>
+        <input type="text" id="loginUser" name="username" placeholder="請輸入帳號" autocomplete="username" />
+      </div>
+      <div class="form-group">
+        <label>密碼</label>
+        <input type="password" id="loginPass" name="password" placeholder="請輸入密碼" autocomplete="current-password" />
+      </div>
+      <button type="submit" class="btn-primary">登入</button>
+    </form>
     <div class="login-err" id="loginErr">帳號或密碼錯誤</div>
   </div>
 </div>
@@ -551,7 +553,7 @@ tbody tr:hover { background: var(--surface2); }
 const USERS = { 'admin':'8385770' };
 
 // ── Google Sheets 設定 ──
-const SHEET_ID = '1eKhG8NTUV9JL291MKNjZhTQf6dOt_AXF';
+const SHEET_ID = '1aHg78w-XNxCbZxIRLHEc7s-BnXUi4MnKuhpnYIfeL_0';
 const API_KEY  = 'AIzaSyDa-7bx3li-3lrAfZXw4DCKCloxxhgBIJ4';
 
 // ── 本地資料存儲 ──
@@ -722,7 +724,7 @@ async function syncData() {
   const info = document.getElementById('syncInfo');
   info.textContent='同步中...';
   try {
-    const url=`https://sheets.googleapis.com/v4/spreadsheets/${SHEET_ID}/values/新活力管理進度!A:J?key=${API_KEY}`;
+    const url=`https://sheets.googleapis.com/v4/spreadsheets/${SHEET_ID}/values/新活力計畫%26課程進度表!A:J?key=${API_KEY}`;
     const res=await fetch(url);
     const data=await res.json();
     if(data.values&&data.values.length>1){
