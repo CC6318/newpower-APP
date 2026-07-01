@@ -253,7 +253,7 @@ tbody tr:hover { background: var(--surface2); }
       <div class="grid-4" style="margin-bottom:1.25rem" id="dashStats"></div>
       <div class="grid-2">
         <div class="card">
-          <div class="card-title">⚠️ 需要關注</div>
+          <div class="card-title">⚠️ TTQS需要關注</div>
           <div id="dashUrgent"></div>
         </div>
         <div class="card">
@@ -654,7 +654,7 @@ function ttqsStatus(row) {
 }
 function ttqsBadge(row) {
   const s=ttqsStatus(row), d=daysUntil(row.expiry);
-  if(s==='danger') return `<span class="badge badge-danger">❌ 需關注</span>`;
+  if(s==='danger') return `<span class="badge badge-danger">❌ 未合作</span>`;
   if(s==='warn') return `<span class="badge badge-warn">⚠️ 即將到期${d!==null?' (剩'+d+'天)':''}</span>`;
   return `<span class="badge badge-ok">✅ 效期安全${d!==null?' (剩'+d+'天)':''}</span>`;
 }
@@ -694,7 +694,7 @@ function renderDashboard() {
   }
   document.getElementById('dashAlerts').innerHTML = alerts;
 
-  // 需要關注
+  // TTQS需要關注
   let urgent = '';
   urgentTTQS.slice(0,5).forEach(r=>{
     urgent+=`<div style="display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid var(--border)">
@@ -895,7 +895,7 @@ function renderTTQS(q=''){
   const urgent=data.filter(r=>['warn','danger'].includes(ttqsStatus(r)));
   let alertHtml='';
   if(urgent.length){
-    alertHtml=`<div class="alert alert-warn"><div class="alert-title">⚠️ 共 ${urgent.length} 筆需要關注</div>${urgent.map(r=>`<div class="alert-item">• ${r.name} ${ttqsStatus(r)==='danger'?'— ❌ 需關注':'— ⚠️ 即將到期'}</div>`).join('')}</div>`;
+    alertHtml=`<div class="alert alert-warn"><div class="alert-title">⚠️ 共 ${urgent.length} 筆TTQS需要關注</div>${urgent.map(r=>`<div class="alert-item">• ${r.name} ${ttqsStatus(r)==='danger'?'— ❌ 需關注':'— ⚠️ 即將到期'}</div>`).join('')}</div>`;
   }
   document.getElementById('ttqsAlerts').innerHTML=alertHtml;
   document.getElementById('ttqsTable').innerHTML=data.length?data.map(r=>`<tr>
