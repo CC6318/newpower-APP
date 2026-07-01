@@ -720,13 +720,9 @@ function renderDashboard() {
 // ── Google Sheets 同步 ──
 async function syncData() {
   const info = document.getElementById('syncInfo');
-  if(SHEET_ID==='YOUR_GOOGLE_SHEET_ID'){
-    info.textContent='⚠️ 請先在 config.js 設定 Google Sheets ID';
-    return;
-  }
   info.textContent='同步中...';
   try {
-    const url=`https://sheets.googleapis.com/v4/spreadsheets/${SHEET_ID}/values/TTQS管理進度!A:J?key=${API_KEY}`;
+    const url=`https://sheets.googleapis.com/v4/spreadsheets/${SHEET_ID}/values/新活力管理進度!A:J?key=${API_KEY}`;
     const res=await fetch(url);
     const data=await res.json();
     if(data.values&&data.values.length>1){
